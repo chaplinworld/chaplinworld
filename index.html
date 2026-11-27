@@ -1,1595 +1,3466 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>CHAPLIN'S WORLD | Official Poster Studio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-dark: #0b0b0c;
-            --card-bg: #141416;
-            --accent: #d92b2b;
-            --accent-hover: #b82020;
-            --whatsapp-green: #25D366;
-            --whatsapp-dark: #128C7E;
-            --text-main: #f4f1ea;
-            --text-muted: #9e9a93;
-            --border-color: #27272b;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            isolation: isolate;
-            -webkit-user-select: none;
-            user-select: none;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: url("Logo%20.png") center / min(72vw, 460px) auto no-repeat;
-            opacity: 0.08;
-            pointer-events: none;
-        }
-
-        /* Header / Navbar */
-        header {
-            padding: 18px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            background: rgba(11, 11, 12, 0.92);
-            backdrop-filter: blur(10px);
-            z-index: 100;
-        }
-
-        .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.45rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: var(--text-main);
-            text-decoration: none;
-        }
-
-        .logo img {
-            width: 2em;
-            height: 2em;
-            object-fit: contain;
-            vertical-align: middle;
-            margin-right: 0.55rem;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .yt-link {
-            font-size: 0.78rem;
-            padding: 7px 14px;
-            background: var(--accent);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 20px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: background 0.25s ease;
-        }
-
-        .yt-link:hover {
-            background: var(--accent-hover);
-        }
-
-        /* Search Bar */
-        .search-container {
-            width: 100%;
-            max-width: 720px;
-            margin: 28px auto 25px;
-            padding: 0 5%;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 18px 52px 18px 24px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            color: var(--text-main);
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            -webkit-user-select: text;
-            user-select: text;
-        }
-
-        .search-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .search-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 18px rgba(217, 43, 43, 0.2);
-        }
-
-        .clear-search {
-            position: absolute;
-            right: calc(5% + 16px);
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: none;
-        }
-
-        .clear-search:hover {
-            color: var(--text-main);
-        }
-
-        /* Category Filter Tabs */
-        .categories {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 0 5% 30px;
-        }
-
-        .category-menu-toggle {
-            display: none;
-        }
-
-        .cat-btn {
-            background: var(--card-bg);
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
-            padding: 10px 22px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .cat-btn:hover, .cat-btn.active {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-        }
-
-        .subcategories {
-            display: none;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            padding: 0 5% 30px;
-        }
-
-        .subcategories.visible {
-            display: flex;
-        }
-
-        .subcat-btn {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.78rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .subcat-btn:hover,
-        .subcat-btn.active {
-            color: #fff;
-            border-color: var(--accent);
-            background: rgba(217, 43, 43, 0.75);
-        }
-
-        /* Poster Grid (Desktop) */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 30px;
-            padding: 0 5% 50px;
-            max-width: 1400px;
-            width: 100%;
-            margin: 0 auto;
-            flex: 1;
-            align-content: start;
-            align-items: start;
-        }
-
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 50px 20px;
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        .poster-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            min-width: 0;
-            height: auto;
-        }
-
-        .poster-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.75);
-            border-color: rgba(217, 43, 43, 0.5);
-        }
-
-        .poster-card.selected {
-            border: 2px solid var(--whatsapp-green);
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.28);
-        }
-
-        .select-toggle-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 5;
-            background: rgba(11, 11, 12, 0.85);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            transition: all 0.2s ease;
-        }
-
-        .select-toggle-btn:hover {
-            border-color: var(--whatsapp-green);
-            background: rgba(18, 140, 126, 0.9);
-        }
-
-        .poster-card.selected .select-toggle-btn {
-            background: var(--whatsapp-green);
-            color: #06140c;
-            border-color: var(--whatsapp-green);
-        }
-
-        .poster-img-wrap {
-            width: 100%;
-            aspect-ratio: 1 / 1.414;
-            overflow: hidden;
-            position: relative;
-            background: #000;
-        }
-
-        .poster-img-wrap canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-            pointer-events: none;
-        }
-
-        .poster-card:hover .poster-img-wrap canvas {
-            transform: scale(1.05);
-        }
-
-        .img-shield {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            background: transparent;
-        }
-
-        .trending-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 3;
-            background: rgba(217, 43, 43, 0.92);
-            color: #fff;
-            font-size: 0.68rem;
-            font-weight: 700;
-            padding: 4px 9px;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
-            pointer-events: none;
-        }
-
-        .watermark-overlay {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            z-index: 3;
-            background: rgba(11, 11, 12, 0.75);
-            color: rgba(244, 241, 234, 0.75);
-            font-size: 0.62rem;
-            padding: 3px 8px;
-            border-radius: 4px;
-            letter-spacing: 0.8px;
-            pointer-events: none;
-        }
-
-        .poster-info {
-            padding: 18px;
-        }
-
-        .poster-cat {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: var(--accent);
-            letter-spacing: 1.5px;
-            font-weight: 700;
-        }
-
-        .poster-title {
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin: 6px 0;
-            color: var(--text-main);
-        }
-
-        .poster-rate {
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: #f4f1ea;
-            margin-top: 4px;
-        }
-
-        .poster-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* Combo Card Styling */
-        .combo-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            min-width: 0;
-        }
-
-        .combo-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--accent);
-        }
-
-        .combo-thumbs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        .combo-thumbs canvas {
-            width: 100%;
-            aspect-ratio: 1 / 1.414;
-            border-radius: 6px;
-            background: #000;
-            pointer-events: none;
-        }
-
-        .combo-badge {
-            display: inline-block;
-            background: var(--accent);
-            color: #fff;
-            font-size: 0.68rem;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            width: fit-content;
-        }
-
-        .combo-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .combo-items-text {
-            font-size: 0.84rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .combo-price {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 14px;
-        }
-
-        /* Modal Preview */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            max-width: 850px;
-            width: 100%;
-            border-radius: 16px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px; right: 20px;
-            font-size: 1.8rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .close-modal:hover { color: #fff; }
-
-        .modal-img-box {
-            background: #060607;
-            padding: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .wall-frame {
-            border: 10px solid #1e1e22;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.85);
-            max-height: 420px;
-            aspect-ratio: 1 / 1.414;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wall-frame canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-            pointer-events: none;
-        }
-
-        .modal-details {
-            padding: 35px 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .modal-details h2 {
-            font-size: 1.6rem;
-            margin: 10px 0;
-        }
-
-        .modal-details p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .spec-box {
-            background: var(--bg-dark);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .spec-box div {
-            margin-bottom: 6px;
-            color: var(--text-muted);
-        }
-
-        .spec-box strong { color: var(--text-main); }
-
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #fff;
-            text-align: center;
-            padding: 13px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-        }
-
-        .btn-multi-select {
-            background: rgba(37, 211, 102, 0.14);
-            color: var(--whatsapp-green);
-            border: 1px solid var(--whatsapp-green);
-            text-align: center;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.86rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn-multi-select.added,
-        .btn-multi-select:hover {
-            background: var(--whatsapp-green);
-            color: #06140c;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            text-align: center;
-            padding: 11px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.84rem;
-            transition: background 0.2s;
-        }
-
-        .btn-secondary:hover {
-            background: #222226;
-        }
-
-        /* Floating Multi-Select Enquiry Bar */
-        .multi-select-bar {
-            position: fixed;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: min(94%, 760px);
-            background: #18181c;
-            border: 1px solid var(--whatsapp-green);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
-            border-radius: 14px;
-            padding: 12px 16px;
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            z-index: 950;
-            animation: slideUp 0.25s ease;
-        }
-
-        .multi-select-bar.visible {
-            display: flex;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translate(-50%, 15px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
-        }
-
-        .multi-info {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            overflow: hidden;
-        }
-
-        .multi-count {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--whatsapp-green);
-        }
-
-        .multi-codes {
-            font-size: 0.76rem;
-            color: var(--text-main);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .multi-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        .btn-clear-multi {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 9px 12px;
-            border-radius: 8px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-clear-multi:hover {
-            color: #fff;
-            border-color: #fff;
-        }
-
-        .btn-enquiry-multi {
-            background: var(--whatsapp-green);
-            color: #06140c;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-size: 0.82rem;
-            font-weight: 800;
-            text-decoration: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: background 0.2s;
-        }
-
-        .btn-enquiry-multi:hover {
-            background: #1ebe5d;
-        }
-
-        /* Green WhatsApp Enquiry Banner ABOVE Footer */
-        .custom-poster-banner {
-            width: 100%;
-            background: linear-gradient(90deg, #128C7E, #25D366);
-            color: #04120a;
-            text-align: center;
-            padding: 10px 14px;
-            font-size: 0.82rem;
-            font-weight: 800;
-            letter-spacing: 0.3px;
-            text-decoration: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: filter 0.2s ease;
-        }
-
-        .custom-poster-banner:hover {
-            filter: brightness(1.06);
-        }
-
-        /* Compact / Shortened Footer */
-        footer {
-            text-align: center;
-            padding: 10px 4%;
-            background: #080809;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-muted);
-            font-size: 0.72rem;
-            line-height: 1.4;
-        }
-
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Mobile & Tablet View: Full-width 4-Column Grid, Zero Stretch */
-        @media (max-width: 768px) {
-            .modal-content { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
-            .modal { padding: 10px; }
-            .modal-content { width: min(100%, 380px); max-height: 85vh; }
-            .close-modal { top: 8px; right: 12px; font-size: 1.5rem; }
-            .modal-img-box { padding: 14px 14px 8px; }
-            .wall-frame { height: min(26vh, 200px); max-height: none; width: auto; border-width: 6px; flex: none; }
-            .modal-details { padding: 14px 16px 16px; justify-content: flex-start; }
-            .modal-details h2 { font-size: 1.15rem; margin: 4px 0; }
-            .modal-details p { margin-bottom: 10px; font-size: 0.76rem; line-height: 1.4; }
-            .spec-box { margin-bottom: 12px; padding: 9px; font-size: 0.72rem; }
-            .btn-group { gap: 7px; }
-            .btn-primary, .btn-multi-select { padding: 10px; font-size: 0.78rem; }
-            .btn-secondary { padding: 8px; font-size: 0.74rem; }
-
-            header {
-                display: grid;
-                grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-                gap: 8px;
-                padding: 10px 3%;
-            }
-
-            .category-menu-toggle {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                justify-self: start;
-                width: 38px;
-                height: 38px;
-                background: var(--card-bg);
-                color: var(--text-main);
-                border: 1px solid var(--border-color);
-                border-radius: 8px;
-                cursor: pointer;
-            }
-
-            .logo { justify-self: center; font-size: 1rem; letter-spacing: 1px; white-space: nowrap; }
-            .logo img { width: 1.5em; height: 1.5em; margin-right: 0.35rem; }
-            .header-right { justify-self: end; }
-            .yt-link { padding: 5px 6px; font-size: 0.62rem; letter-spacing: 0; }
-
-            .hamburger-icon { display: flex; flex-direction: column; gap: 4px; width: 18px; }
-            .hamburger-icon span { height: 2px; width: 100%; background: currentColor; border-radius: 2px; }
-
-            .search-container { margin: 14px auto 14px; }
-            .search-input { padding: 12px 40px 12px 16px; font-size: 0.85rem; }
-
-            .categories {
-                display: none;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 8px;
-                padding: 0 5% 16px;
-            }
-            .categories.open { display: flex; }
-
-            .subcategories { width: 90%; margin: 0 auto; padding: 0 0 16px; }
-            .subcategories.visible { display: flex; flex-direction: column; align-items: stretch; }
-            .subcat-btn, .cat-btn { width: 100%; text-align: left; }
-
-            .gallery {
-                display: grid !important;
-                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-                gap: 6px !important;
-                padding: 0 2% 28px !important;
-                align-content: start !important;
-                align-items: start !important;
-            }
-
-            .poster-card {
-                border-radius: 6px;
-                min-width: 0;
-                width: 100%;
-                height: auto !important;
-            }
-            .poster-card:hover {
-                transform: none;
-            }
-
-            .select-toggle-btn {
-                top: 3px;
-                right: 3px;
-                width: 17px;
-                height: 17px;
-                padding: 0;
-                font-size: 0.6rem;
-                border-radius: 50%;
-            }
-
-            .trending-badge {
-                top: 3px;
-                left: 3px;
-                font-size: 0.46rem;
-                padding: 1px 4px;
-            }
-
-            .poster-info {
-                padding: 5px 4px;
-            }
-
-            .poster-cat {
-                font-size: 0.42rem;
-                letter-spacing: 0.3px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .poster-title {
-                font-size: 0.56rem;
-                margin: 2px 0;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .poster-rate {
-                font-size: 0.58rem;
-                margin-top: 1px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .poster-meta {
-                font-size: 0.46rem;
-                margin-top: 3px;
-                padding-top: 3px;
-            }
-
-            .poster-meta span:first-child {
-                display: none;
-            }
-
-            .watermark-overlay {
-                display: none;
-            }
-
-            .combo-card {
-                grid-column: span 4;
-                padding: 10px;
-            }
-            .combo-title { font-size: 0.85rem; }
-            .combo-items-text { font-size: 0.7rem; }
-            .combo-price { font-size: 0.9rem; margin-bottom: 8px; }
-
-            .multi-select-bar {
-                bottom: 12px;
-                padding: 10px 12px;
-                width: 95%;
-            }
-            .multi-count { font-size: 0.76rem; }
-            .multi-codes { font-size: 0.68rem; max-width: 150px; }
-            .btn-clear-multi { padding: 7px 9px; font-size: 0.7rem; }
-            .btn-enquiry-multi { padding: 8px 11px; font-size: 0.74rem; }
-
-            .custom-poster-banner {
-                font-size: 0.72rem;
-                padding: 9px 10px;
-            }
-
-            footer {
-                padding: 8px 3%;
-                font-size: 0.65rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>CHAPLIN'S WORLD | Official Poster Studio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --bg-dark: #0b0b0c;
+    --card-bg: #141416;
+    --accent: #d92b2b;
+    --accent-hover: #b82020;
+    --whatsapp-green: #25D366;
+    --whatsapp-dark: #128C7E;
+    --text-main: #f4f1ea;
+    --text-muted: #9e9a93;
+    --border-color: #27272b;
+    --desktop-columns: 6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    isolation: isolate;
+    -webkit-user-select: none;
+    user-select: none;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: url("Logo%20.png") center / min(72vw, 460px) auto no-repeat;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+button, a, input {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    background: rgba(11, 11, 12, 0.92);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+.logo img {
+    width: 2em;
+    height: 2em;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 0.55rem;
+}
+
+.logo span {
+    color: var(--accent);
+    font-family: inherit;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.yt-link {
+    font-size: 0.78rem;
+    padding: 7px 14px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background 0.25s;
+}
+
+.yt-link:hover {
+    background: var(--accent-hover);
+}
+
+/* ================= SEARCH ================= */
+
+.search-container {
+    width: 100%;
+    max-width: 720px;
+    margin: 28px auto 25px;
+    padding: 0 5%;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 18px 52px 18px 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    color: var(--text-main);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 18px rgba(217,43,43,0.2);
+}
+
+.clear-search {
+    position: absolute;
+    right: calc(5% + 16px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: none;
+}
+
+/* ================= CATEGORIES ================= */
+
+.categories {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 5% 30px;
+}
+
+.category-menu-toggle {
+    display: none;
+}
+
+.cat-btn {
+    background: var(--card-bg);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 10px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.cat-btn:hover,
+.cat-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.subcategories {
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 5% 30px;
+}
+
+.subcategories.visible {
+    display: flex;
+}
+
+.subcat-btn {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.subcat-btn:hover,
+.subcat-btn.active {
+    color: #fff;
+    border-color: var(--accent);
+    background: rgba(217,43,43,0.75);
+}
+
+/* ================= GALLERY TOOLBAR ================= */
+
+.gallery-toolbar {
+    width: 100%;
+    padding: 0 3% 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.gallery-status {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.gallery-status.selection-active {
+    color: var(--whatsapp-green);
+}
+
+.view-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.view-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.size-btn {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: 8px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.size-btn:hover:not(:disabled) {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.size-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+#columnCount {
+    min-width: 18px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ================= DESKTOP GALLERY ================= */
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(var(--desktop-columns), minmax(0, 1fr));
+    gap: 16px;
+    padding: 0 3% 40px;
+    width: 100%;
+    margin: 0 auto;
+    flex: 1;
+    align-content: start;
+    align-items: start;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.poster-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    cursor: pointer;
+    position: relative;
+    min-width: 0;
+    width: 100%;
+}
+
+.poster-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.75);
+    border-color: rgba(217,43,43,0.5);
+}
+
+.poster-card.selected {
+    border-color: var(--whatsapp-green);
+    box-shadow:
+        inset 0 0 0 1px var(--whatsapp-green),
+        0 0 12px rgba(37,211,102,0.2);
+}
+
+body.selection-mode .poster-card:hover {
+    transform: none;
+    border-color: var(--whatsapp-green);
+}
+
+body.selection-mode .gallery {
+    padding-bottom: 100px;
+}
+
+/* ================= SELECTION BUTTON ================= */
+
+.select-toggle-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+    background: rgba(11,11,12,0.85);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.2s;
+}
+
+.select-toggle-btn:hover {
+    border-color: var(--whatsapp-green);
+    background: rgba(18,140,126,0.9);
+}
+
+.poster-card.selected .select-toggle-btn {
+    background: var(--whatsapp-green);
+    color: #06140c;
+    border-color: var(--whatsapp-green);
+}
+
+.select-mobile {
+    display: none;
+}
+
+/* ================= POSTER IMAGE ================= */
+
+.poster-img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1.414;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+}
+
+.poster-img-wrap canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.5s;
+    pointer-events: none;
+}
+
+.poster-card:hover .poster-img-wrap canvas {
+    transform: scale(1.05);
+}
+
+body.selection-mode .poster-card:hover canvas {
+    transform: none;
+}
+
+.img-shield {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: transparent;
+}
+
+.trending-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 3;
+    background: rgba(217,43,43,0.92);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 4px 9px;
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+.watermark-overlay {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 3;
+    background: rgba(11,11,12,0.75);
+    color: rgba(244,241,234,0.75);
+    font-size: 0.62rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.8px;
+    pointer-events: none;
+}
+
+/* ================= POSTER DETAILS ================= */
+
+.poster-info {
+    padding: 12px;
+    min-width: 0;
+}
+
+.poster-cat,
+.poster-title,
+.poster-rate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.35;
+}
+
+.poster-cat {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    color: var(--accent);
+    letter-spacing: 0.7px;
+    font-weight: 700;
+}
+
+.poster-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 6px 0;
+    color: var(--text-main);
+}
+
+.poster-rate {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-top: 4px;
+}
+
+.poster-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.poster-meta span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ================= COMBO CARDS ================= */
+
+.combo-card {
+    grid-column: span 2;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s, border-color 0.3s;
+    min-width: 0;
+}
+
+.combo-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+}
+
+.combo-thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(70px,1fr));
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.combo-thumbs canvas {
+    width: 100%;
+    aspect-ratio: 1 / 1.414;
+    border-radius: 6px;
+    background: #000;
+    pointer-events: none;
+}
+
+.combo-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.combo-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.combo-items-text {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
+}
+
+.combo-price {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 14px;
+}
+
+/* ================= PREVIEW MODAL ================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    max-width: 850px;
+    width: 100%;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: auto;
+    max-height: 90vh;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    z-index: 10;
+    background: none;
+    border: none;
+}
+
+.close-modal:hover {
+    color: #fff;
+}
+
+.modal-img-box {
+    background: #060607;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wall-frame {
+    border: 10px solid #1e1e22;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.85);
+    width: min(100%, 297px);
+    aspect-ratio: 1 / 1.414;
+    position: relative;
+    overflow: hidden;
+}
+
+.wall-frame canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+}
+
+.modal-details {
+    padding: 35px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.modal-details h2 {
+    font-size: 1.6rem;
+    margin: 10px 0;
+    overflow-wrap: anywhere;
+}
+
+.modal-details p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    overflow-wrap: anywhere;
+}
+
+.spec-box {
+    background: var(--bg-dark);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+    border: 1px solid var(--border-color);
+}
+
+.spec-box div {
+    margin-bottom: 6px;
+    color: var(--text-muted);
+}
+
+.spec-box strong {
+    color: var(--text-main);
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-primary {
+    display: block;
+    background: var(--accent);
+    color: #fff;
+    text-align: center;
+    padding: 13px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+}
+
+.btn-multi-select {
+    background: rgba(37,211,102,0.14);
+    color: var(--whatsapp-green);
+    border: 1px solid var(--whatsapp-green);
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.86rem;
+    transition: all 0.2s;
+}
+
+.btn-multi-select:hover,
+.btn-multi-select.added {
+    background: var(--whatsapp-green);
+    color: #06140c;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    padding: 11px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.84rem;
+    transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #222226;
+}
+
+/* ================= FLOATING SELECTION BAR ================= */
+
+.multi-select-bar {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(94%, 760px);
+    background: #18181c;
+    border: 1px solid var(--whatsapp-green);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+    border-radius: 14px;
+    padding: 12px 16px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    z-index: 950;
+    animation: slideUp 0.25s ease;
+}
+
+.multi-select-bar.visible {
+    display: flex;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 15px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+.multi-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.multi-count {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--whatsapp-green);
+}
+
+.multi-codes {
+    font-size: 0.76rem;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.multi-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-clear-multi {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-clear-multi:hover {
+    color: #fff;
+    border-color: #fff;
+}
+
+.btn-enquiry-multi {
+    background: var(--whatsapp-green);
+    color: #06140c;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-enquiry-multi:hover {
+    background: #1ebe5d;
+}
+
+/* ================= CUSTOM POSTER BANNER ================= */
+
+.custom-poster-banner {
+    width: 100%;
+    background: linear-gradient(90deg, #128C7E, #25D366);
+    color: #04120a;
+    text-align: center;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: filter 0.2s;
+}
+
+.custom-poster-banner:hover {
+    filter: brightness(1.06);
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    text-align: center;
+    padding: 10px 4%;
+    background: #080809;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    line-height: 1.4;
+}
+
+footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+    .modal {
+        padding: 10px;
+    }
+
+    .modal-content {
+        grid-template-columns: 1fr;
+        width: min(100%, 380px);
+        max-height: 85vh;
+    }
+
+    .close-modal {
+        top: 8px;
+        right: 12px;
+        font-size: 1.5rem;
+    }
+
+    .modal-img-box {
+        padding: 14px 14px 8px;
+    }
+
+    .wall-frame {
+        height: min(26vh, 200px);
+        width: auto;
+        border-width: 6px;
+        flex: none;
+    }
+
+    .modal-details {
+        padding: 14px 16px 16px;
+        justify-content: flex-start;
+    }
+
+    .modal-details h2 {
+        font-size: 1.15rem;
+        margin: 4px 0;
+    }
+
+    .modal-details p {
+        margin-bottom: 10px;
+        font-size: 0.76rem;
+        line-height: 1.4;
+    }
+
+    .spec-box {
+        margin-bottom: 12px;
+        padding: 9px;
+        font-size: 0.72rem;
+    }
+
+    .btn-group {
+        gap: 7px;
+    }
+
+    .btn-primary,
+    .btn-multi-select {
+        padding: 10px;
+        font-size: 0.78rem;
+    }
+
+    .btn-secondary {
+        padding: 8px;
+        font-size: 0.74rem;
+    }
+
+    header {
+        display: grid;
+        grid-template-columns:
+            minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: 8px;
+        padding: 10px 3%;
+    }
+
+    .category-menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-self: start;
+        width: 38px;
+        height: 38px;
+        background: var(--card-bg);
+        color: var(--text-main);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .logo {
+        justify-self: center;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    .logo img {
+        width: 1.5em;
+        height: 1.5em;
+        margin-right: 0.35rem;
+    }
+
+    .header-right {
+        justify-self: end;
+    }
+
+    .yt-link {
+        padding: 5px 6px;
+        font-size: 0.62rem;
+        letter-spacing: 0;
+    }
+
+    .hamburger-icon {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 18px;
+    }
+
+    .hamburger-icon span {
+        height: 2px;
+        width: 100%;
+        background: currentColor;
+        border-radius: 2px;
+    }
+
+    .search-container {
+        margin: 14px auto;
+    }
+
+    .search-input {
+        padding: 12px 40px 12px 16px;
+        font-size: 0.85rem;
+    }
+
+    .categories {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 0 5% 16px;
+    }
+
+    .categories.open {
+        display: flex;
+    }
+
+    .subcategories {
+        width: 90%;
+        margin: 0 auto;
+        padding: 0 0 16px;
+    }
+
+    .subcategories.visible {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .subcat-btn,
+    .cat-btn {
+        width: 100%;
+        text-align: left;
+    }
+
+    .gallery-toolbar {
+        padding: 0 3% 10px;
+    }
+
+    .gallery-status {
+        font-size: 0.65rem;
+    }
+
+    /* Desktop size controls hidden on mobile */
+
+    .view-controls {
+        display: none;
+    }
+
+    /* Mobile always displays four posters per row */
+
+    .gallery {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 6px;
+        padding: 0 2% 28px;
+        align-content: start;
+        align-items: start;
+    }
+
+    body.selection-mode .gallery {
+        padding-bottom: 85px;
+    }
+
+    .poster-card {
+        border-radius: 6px;
+    }
+
+    .poster-card:hover {
+        transform: none;
+    }
+
+    .poster-card:hover .poster-img-wrap canvas {
+        transform: none;
+    }
+
+    .select-toggle-btn {
+        top: 3px;
+        right: 3px;
+        width: 17px;
+        height: 17px;
+        padding: 0;
+        font-size: 0.6rem;
+        border-radius: 50%;
+    }
+
+    .select-desktop {
+        display: none;
+    }
+
+    .select-mobile {
+        display: inline;
+    }
+
+    .trending-badge {
+        top: 3px;
+        left: 3px;
+        font-size: 0.46rem;
+        padding: 1px 4px;
+    }
+
+    .poster-info {
+        padding: 5px 4px;
+    }
+
+    .poster-cat {
+        font-size: 0.42rem;
+        letter-spacing: 0.3px;
+    }
+
+    .poster-title {
+        font-size: 0.56rem;
+        margin: 2px 0;
+    }
+
+    .poster-rate {
+        font-size: 0.58rem;
+        margin-top: 1px;
+    }
+
+    .poster-meta {
+        font-size: 0.46rem;
+        margin-top: 3px;
+        padding-top: 3px;
+    }
+
+    .poster-meta span:first-child {
+        display: none;
+    }
+
+    .watermark-overlay {
+        display: none;
+    }
+
+    .combo-card {
+        grid-column: span 4;
+        padding: 10px;
+    }
+
+    .combo-title {
+        font-size: 0.85rem;
+    }
+
+    .combo-items-text {
+        font-size: 0.7rem;
+    }
+
+    .combo-price {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+
+    .multi-select-bar {
+        bottom: 12px;
+        padding: 10px 12px;
+        width: 95%;
+    }
+
+    .multi-count {
+        font-size: 0.76rem;
+    }
+
+    .multi-codes {
+        font-size: 0.68rem;
+        max-width: 150px;
+    }
+
+    .btn-clear-multi {
+        padding: 7px 9px;
+        font-size: 0.7rem;
+    }
+
+    .btn-enquiry-multi {
+        padding: 8px 11px;
+        font-size: 0.74rem;
+    }
+
+    .custom-poster-banner {
+        font-size: 0.72rem;
+        padding: 9px 10px;
+    }
+
+    footer {
+        padding: 8px 3%;
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 350px) {
+
+    .logo {
+        font-size: 0.78rem;
+        letter-spacing: 0.4px;
+    }
+
+    .multi-select-bar {
+        gap: 6px;
+        padding: 8px;
+    }
+
+    .multi-actions {
+        gap: 4px;
+    }
+}
+
+</style>
 </head>
-<body oncontextmenu="return false;">
 
-    <header>
-        <button class="category-menu-toggle" id="categoryMenuToggle" type="button" aria-label="Toggle categories" aria-controls="categoryButtons" aria-expanded="false" onclick="toggleCategoryMenu()">
-            <span class="hamburger-icon" aria-hidden="true"><span></span><span></span><span></span></span>
-        </button>
-        <a href="#" class="logo"><img src="Logo%20.png" alt="">CHAPLIN'S <span>WORLD</span></a>
-        <div class="header-right">
-            <a href="https://youtube.com/@chaplin_world" target="_blank" class="yt-link">▶ YouTube</a>
-        </div>
-    </header>
+<body>
 
-    <!-- Search Bar -->
-    <div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search by poster name, category, subcategory, or code (e.g. PST-01)..." oninput="handleSearch()">
-        <button id="clearSearchBtn" class="clear-search" onclick="clearSearch()" title="Clear search">&times;</button>
-    </div>
+<!-- ================= HEADER ================= -->
 
-    <!-- Main Categories -->
-    <div class="categories" id="categoryButtons"></div>
-    <div class="subcategories" id="subcategoryButtons" aria-label="Subcategories"></div>
+<header>
 
-    <!-- Poster Showcase Grid -->
-    <main class="gallery" id="posterGallery"></main>
+    <button
+        class="category-menu-toggle"
+        id="categoryMenuToggle"
+        type="button"
+        aria-label="Toggle categories"
+        aria-controls="categoryButtons"
+        aria-expanded="false">
 
-    <!-- Modal for Full Preview & Sample Download -->
-    <div class="modal" id="previewModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div class="modal-img-box">
-                <div class="wall-frame">
-                    <canvas id="modalCanvas"></canvas>
-                    <div class="img-shield"></div>
-                </div>
-            </div>
-            <div class="modal-details">
-                <span class="poster-cat" id="modalCat">CATEGORY</span>
-                <h2 id="modalTitle">Poster Title</h2>
-                <p id="modalDesc">High-definition minimalist artwork designed for modern living spaces and studios.</p>
-                
-                <div class="spec-box">
-                    <div><strong>Price / Rate:</strong> <span id="modalRate">₹199</span></div>
-                    <div><strong>Available Sizes:</strong> A3 & A4</div>
-                    <div><strong>Print Quality:</strong> 300 DPI Ultra-Sharp</div>
-                    <div><strong>Code:</strong> <span id="modalCode">#PST01</span></div>
-                </div>
+        <span class="hamburger-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
 
-                <div class="btn-group">
-                    <a id="whatsappBtn" href="#" target="_blank" class="btn-primary">💬 Enquire This Poster on WhatsApp</a>
-                    <button id="modalMultiSelectBtn" type="button" class="btn-multi-select">+ Select Multiple (Add to Enquiry List)</button>
-                    <button id="downloadSampleBtn" class="btn-secondary">⬇ Download Rough Sample (Low-Res)</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </button>
 
-    <!-- Floating Bar for Multiple Selected Posters -->
-    <div class="multi-select-bar" id="multiSelectBar">
-        <div class="multi-info">
-            <span class="multi-count" id="multiCountText">0 Posters Selected</span>
-            <span class="multi-codes" id="multiCodesText">Codes: -</span>
-        </div>
-        <div class="multi-actions">
-            <button type="button" class="btn-clear-multi" onclick="clearSelectedPosters()">Clear</button>
-            <a id="multiEnquiryBtn" href="#" target="_blank" class="btn-enquiry-multi">💬 Enquiry</a>
-        </div>
-    </div>
-
-    <!-- Green WhatsApp Enquiry Banner ABOVE Footer -->
-    <a class="custom-poster-banner" href="https://wa.me/919566945734?text=Hi%20Chaplin's%20World!%20I%20would%20like%20to%20enquire%20about%20Customized%20Posters." target="_blank">
-        <span>🎨 Customized Posters Available — 💬 WhatsApp for Enquiry</span>
+    <a href="#" class="logo">
+        <img src="Logo%20.png" alt="">
+        CHAPLIN'S <span>WORLD</span>
     </a>
 
-    <!-- Shortened Compact Footer -->
-    <footer>
-        &copy; 2026 <a href="https://youtube.com/@chaplin_world" target="_blank">Chaplin's World</a> Poster Studio. All artworks are for showcase purposes.
-    </footer>
+    <div class="header-right">
+        <a
+            href="https://youtube.com/@chaplin_world"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="yt-link">
+            ▶ YouTube
+        </a>
+    </div>
 
-    <script>
-        const WHATSAPP_NUMBER = "919566945734";
-        const SHEET_ID = "11th-ToKB7rnSd6lwZ2A98kwh93S62RKZ2NNWNw42LUw";
-        const STATS_STORAGE_KEY = "chaplins_world_poster_stats_v1";
+</header>
 
-        let allRowsData = [];
-        let postersData = [];
-        let combosData = [];
-        let selectedPosterCodes = [];
-        const gallery = document.getElementById('posterGallery');
-        let currentCategory = 'All';
-        let currentSubcategory = 'All';
+<!-- ================= SEARCH ================= -->
 
-        // Per-refresh random tie-breaker seed so collapsed/general views reshuffle on every page reload
-        const refreshSeedMap = {};
-        function getRefreshJitter(code) {
-            if (!(code in refreshSeedMap)) {
-                refreshSeedMap[code] = Math.random();
-            }
-            return refreshSeedMap[code];
+<div class="search-container">
+
+    <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        aria-label="Search posters"
+        placeholder="Search by poster name, category, subcategory, or code (e.g. PST-01)...">
+
+    <button
+        id="clearSearchBtn"
+        class="clear-search"
+        type="button"
+        aria-label="Clear search">
+        &times;
+    </button>
+
+</div>
+
+<!-- ================= CATEGORIES ================= -->
+
+<div class="categories" id="categoryButtons"></div>
+
+<div
+    class="subcategories"
+    id="subcategoryButtons"
+    aria-label="Subcategories">
+</div>
+
+<!-- ================= POSTER SIZE CONTROLS ================= -->
+
+<div class="gallery-toolbar">
+
+    <span
+        class="gallery-status"
+        id="galleryStatus"
+        aria-live="polite">
+        All Posters
+    </span>
+
+    <div class="view-controls">
+
+        <span class="view-label">
+            Poster Size
+        </span>
+
+        <button
+            type="button"
+            class="size-btn"
+            id="decreaseSizeBtn"
+            title="Smaller posters"
+            aria-label="Decrease poster size">
+            −
+        </button>
+
+        <span id="columnCount" title="Posters per row">
+            6
+        </span>
+
+        <button
+            type="button"
+            class="size-btn"
+            id="increaseSizeBtn"
+            title="Larger posters"
+            aria-label="Increase poster size">
+            +
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ================= POSTER GALLERY ================= -->
+
+<main class="gallery" id="posterGallery"></main>
+
+<!-- ================= PREVIEW MODAL ================= -->
+
+<div
+    class="modal"
+    id="previewModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle">
+
+    <div class="modal-content">
+
+        <button
+            class="close-modal"
+            id="closeModalBtn"
+            type="button"
+            aria-label="Close preview">
+            &times;
+        </button>
+
+        <div class="modal-img-box">
+
+            <div class="wall-frame">
+                <canvas id="modalCanvas"></canvas>
+                <div class="img-shield"></div>
+            </div>
+
+        </div>
+
+        <div class="modal-details">
+
+            <span class="poster-cat" id="modalCat">
+                CATEGORY
+            </span>
+
+            <h2 id="modalTitle">
+                Poster Title
+            </h2>
+
+            <p id="modalDesc">
+                High-definition minimalist artwork designed
+                for modern living spaces and studios.
+            </p>
+
+            <div class="spec-box">
+
+                <div>
+                    <strong>Price / Rate:</strong>
+                    <span id="modalRate"></span>
+                </div>
+
+                <div>
+                    <strong>Available Sizes:</strong>
+                    A3 &amp; A4
+                </div>
+
+                <div>
+                    <strong>Print Quality:</strong>
+                    300 DPI Ultra-Sharp
+                </div>
+
+                <div>
+                    <strong>Code:</strong>
+                    <span id="modalCode"></span>
+                </div>
+
+            </div>
+
+            <div class="btn-group">
+
+                <a
+                    id="whatsappBtn"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-primary">
+                    💬 Enquire This Poster on WhatsApp
+                </a>
+
+                <button
+                    id="modalMultiSelectBtn"
+                    type="button"
+                    class="btn-multi-select">
+                    + Select Multiple (Add to Enquiry List)
+                </button>
+
+                <button
+                    id="downloadSampleBtn"
+                    type="button"
+                    class="btn-secondary">
+                    ⬇ Download Rough Sample (Low-Res)
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= FLOATING ENQUIRY BAR ================= -->
+
+<div class="multi-select-bar" id="multiSelectBar">
+
+    <div class="multi-info">
+
+        <span class="multi-count" id="multiCountText">
+            0 Posters Selected
+        </span>
+
+        <span class="multi-codes" id="multiCodesText">
+            Codes: -
+        </span>
+
+    </div>
+
+    <div class="multi-actions">
+
+        <button
+            type="button"
+            class="btn-clear-multi"
+            id="clearSelectedBtn">
+            Clear
+        </button>
+
+        <a
+            id="multiEnquiryBtn"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-enquiry-multi">
+            💬 Enquiry
+        </a>
+
+    </div>
+
+</div>
+
+<!-- ================= CUSTOM POSTER BANNER ================= -->
+
+<a
+    class="custom-poster-banner"
+    id="customPosterLink"
+    target="_blank"
+    rel="noopener noreferrer">
+
+    <span>
+        🎨 Customized Posters Available — 💬 WhatsApp for Enquiry
+    </span>
+
+</a>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    &copy; 2026
+
+    <a
+        href="https://youtube.com/@chaplin_world"
+        target="_blank"
+        rel="noopener noreferrer">
+        Chaplin's World
+    </a>
+
+    Poster Studio. All artworks are for showcase purposes.
+
+</footer>
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+'use strict';
+
+/* ================= CONFIGURATION ================= */
+
+const WHATSAPP_NUMBER = "919566945734";
+
+const SHEET_ID =
+    "11th-ToKB7rnSd6lwZ2A98kwh93S62RKZ2NNWNw42LUw";
+
+const STATS_STORAGE_KEY =
+    "chaplins_world_poster_stats_v1";
+
+const SIZE_STORAGE_KEY =
+    "cw_desktop_columns";
+
+const $ = id => document.getElementById(id);
+
+const gallery = $("posterGallery");
+
+let allRowsData = [];
+let postersData = [];
+let combosData = [];
+
+let currentCategory = "All";
+let currentSubcategory = "All";
+
+const selectedPosterCodes = new Set();
+
+const refreshSeedMap = new Map();
+
+let frozenScores = null;
+let activePoster = null;
+let previousFocus = null;
+
+let desktopColumns = 6;
+
+let posterStats = Object.create(null);
+
+/* ================= RESTORE SAVED SETTINGS ================= */
+
+try {
+
+    const saved = Number(
+        localStorage.getItem(SIZE_STORAGE_KEY)
+    );
+
+    if (
+        Number.isInteger(saved) &&
+        saved >= 4 &&
+        saved <= 8
+    ) {
+        desktopColumns = saved;
+    }
+
+} catch (e) {}
+
+try {
+
+    const saved = JSON.parse(
+        localStorage.getItem(STATS_STORAGE_KEY)
+    );
+
+    if (saved && typeof saved === "object") {
+        Object.assign(posterStats, saved);
+    }
+
+} catch (e) {}
+
+/* ================= HELPER FUNCTIONS ================= */
+
+function waUrl(message) {
+
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+}
+
+$("customPosterLink").href = waUrl(
+    "Hi Chaplin's World! I would like to enquire about Customized Posters."
+);
+
+function el(tag, className, text) {
+
+    const node = document.createElement(tag);
+
+    if (className) {
+        node.className = className;
+    }
+
+    if (text !== undefined) {
+        node.textContent = text;
+    }
+
+    return node;
+
+}
+
+function codeOf(poster) {
+
+    return poster.id || poster.title || "";
+
+}
+
+function getRefreshJitter(code) {
+
+    if (!refreshSeedMap.has(code)) {
+
+        refreshSeedMap.set(code, Math.random());
+
+    }
+
+    return refreshSeedMap.get(code);
+
+}
+
+/* ================= POSTER POPULARITY ================= */
+
+function recordPosterAction(code, type) {
+
+    if (!code) return;
+
+    const key = {
+        view: "views",
+        select: "selects",
+        enquiry: "enquiries"
+    }[type];
+
+    if (!key) return;
+
+    const old = posterStats[code] || {};
+
+    const stats = {
+        views: Number(old.views) || 0,
+        selects: Number(old.selects) || 0,
+        enquiries: Number(old.enquiries) || 0
+    };
+
+    stats[key]++;
+
+    posterStats[code] = stats;
+
+    try {
+
+        localStorage.setItem(
+            STATS_STORAGE_KEY,
+            JSON.stringify(posterStats)
+        );
+
+    } catch (e) {}
+
+}
+
+function getPopularityScore(poster) {
+
+    const stats = posterStats[codeOf(poster)] || {};
+
+    return (
+        (Number(stats.enquiries) || 0) * 5 +
+        (Number(stats.selects) || 0) * 3 +
+        (Number(stats.views) || 0)
+    );
+
+}
+
+/* ================= POSTER SIZE ADJUSTMENT ================= */
+
+function applyResponsiveGrid() {
+
+    document.documentElement.style.setProperty(
+        "--desktop-columns",
+        desktopColumns
+    );
+
+    $("columnCount").textContent = desktopColumns;
+
+    $("decreaseSizeBtn").disabled =
+        desktopColumns >= 8;
+
+    $("increaseSizeBtn").disabled =
+        desktopColumns <= 4;
+
+}
+
+function changePosterSize(direction) {
+
+    desktopColumns = Math.max(
+        4,
+        Math.min(8, desktopColumns - direction)
+    );
+
+    try {
+
+        localStorage.setItem(
+            SIZE_STORAGE_KEY,
+            String(desktopColumns)
+        );
+
+    } catch (e) {}
+
+    applyResponsiveGrid();
+
+}
+
+$("decreaseSizeBtn").addEventListener(
+    "click",
+    () => changePosterSize(-1)
+);
+
+$("increaseSizeBtn").addEventListener(
+    "click",
+    () => changePosterSize(1)
+);
+
+applyResponsiveGrid();
+
+/* ================= MOBILE CATEGORY MENU ================= */
+
+function toggleCategoryMenu() {
+
+    const isOpen =
+        $("categoryButtons").classList.toggle("open");
+
+    $("categoryMenuToggle").setAttribute(
+        "aria-expanded",
+        String(isOpen)
+    );
+
+}
+
+$("categoryMenuToggle").addEventListener(
+    "click",
+    toggleCategoryMenu
+);
+
+/* ================= PREVIEW RESTRICTIONS ================= */
+
+document.addEventListener("contextmenu", e => {
+
+    e.preventDefault();
+
+});
+
+document.addEventListener("keydown", e => {
+
+    const key = e.key.toUpperCase();
+
+    if (
+        e.key === "F12" ||
+        (
+            e.ctrlKey &&
+            e.shiftKey &&
+            ["I", "J", "C"].includes(key)
+        ) ||
+        (
+            e.ctrlKey &&
+            ["U", "S"].includes(key)
+        )
+    ) {
+
+        e.preventDefault();
+
+    }
+
+    if (e.key === "Escape" && activePoster) {
+
+        closeModal();
+
+    }
+
+    if (e.key === "Tab" && activePoster) {
+
+        const focusable = [
+            ...$("previewModal").querySelectorAll(
+                "button:not(:disabled), a[href]"
+            )
+        ];
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (
+            e.shiftKey &&
+            document.activeElement === first
+        ) {
+
+            e.preventDefault();
+            last.focus();
+
+        } else if (
+            !e.shiftKey &&
+            document.activeElement === last
+        ) {
+
+            e.preventDefault();
+            first.focus();
+
         }
 
-        // Interaction metrics: Views, Selections, Enquiries
-        function getPosterStats() {
-            try {
-                return JSON.parse(localStorage.getItem(STATS_STORAGE_KEY)) || {};
-            } catch (e) {
-                return {};
-            }
+    }
+
+});
+
+/* ================= GOOGLE SHEET HELPERS ================= */
+
+function showMessage(message) {
+
+    gallery.replaceChildren(
+        el("div", "no-results", message)
+    );
+
+}
+
+function getField(obj, possibleKeys) {
+
+    for (const key of possibleKeys) {
+
+        if (
+            obj[key] !== undefined &&
+            String(obj[key]).trim() !== ""
+        ) {
+
+            return String(obj[key]).trim();
+
         }
 
-        function recordPosterAction(code, type) {
-            if (!code) return;
-            const stats = getPosterStats();
-            if (!stats[code]) {
-                stats[code] = { views: 0, selects: 0, enquiries: 0 };
-            }
-            if (type === 'view') stats[code].views += 1;
-            if (type === 'select') stats[code].selects += 1;
-            if (type === 'enquiry') stats[code].enquiries += 1;
+    }
 
-            try {
-                localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(stats));
-            } catch (e) {}
+    return "";
+
+}
+
+function getPosterCategory(poster) {
+
+    const category = getField(poster, [
+        "category",
+        "main category",
+        "main_category"
+    ]);
+
+    for (const separator of [" > ", " | ", " / "]) {
+
+        if (category.includes(separator)) {
+
+            return category.split(separator)[0].trim();
+
         }
 
-        function getPopularityScore(poster) {
-            const code = poster.id || poster.title || '';
-            const stats = getPosterStats()[code] || { views: 0, selects: 0, enquiries: 0 };
-            // Weightage: Enquiry (5 pts) > Selected (3 pts) > Viewed (1 pt)
-            return (stats.enquiries * 5) + (stats.selects * 3) + (stats.views * 1);
+    }
+
+    return category;
+
+}
+
+function getPosterSubcategory(poster) {
+
+    const subcategory = getField(poster, [
+        "subcategory",
+        "sub category",
+        "sub-category",
+        "sub division",
+        "subdivision"
+    ]);
+
+    if (subcategory) return subcategory;
+
+    const category = getField(poster, [
+        "category",
+        "main category",
+        "main_category"
+    ]);
+
+    for (const separator of [" > ", " | ", " / "]) {
+
+        if (category.includes(separator)) {
+
+            return category
+                .split(separator)
+                .slice(1)
+                .join(" / ")
+                .trim();
+
         }
 
-        function applyResponsiveGrid() {
-            if (window.innerWidth <= 768) {
-                gallery.style.setProperty('grid-template-columns', 'repeat(4, minmax(0, 1fr))', 'important');
-                gallery.style.setProperty('gap', '6px', 'important');
-                gallery.style.setProperty('padding', '0 2% 28px', 'important');
-                gallery.style.setProperty('align-content', 'start', 'important');
-                gallery.style.setProperty('align-items', 'start', 'important');
-            } else {
-                gallery.style.removeProperty('grid-template-columns');
-                gallery.style.removeProperty('gap');
-                gallery.style.removeProperty('padding');
-                gallery.style.removeProperty('align-content');
-                gallery.style.removeProperty('align-items');
-            }
-        }
-        window.addEventListener('resize', applyResponsiveGrid);
-        applyResponsiveGrid();
+    }
 
-        document.addEventListener('keydown', function(e) {
-            if (
-                e.key === 'F12' ||
-                (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
-                (e.ctrlKey && ['U', 'S'].includes(e.key.toUpperCase()))
-            ) {
-                e.preventDefault();
-            }
+    return "";
+
+}
+
+function categoryLabel(poster) {
+
+    const subcategory =
+        getPosterSubcategory(poster);
+
+    return subcategory
+        ? `${getPosterCategory(poster)} / ${subcategory}`
+        : getPosterCategory(poster) || "Poster";
+
+}
+
+function isTrending(poster) {
+
+    const value = getField(
+        poster,
+        ["trending", "trend"]
+    ).toLowerCase();
+
+    return ["yes", "on", "true"].includes(value);
+
+}
+
+function formatRate(poster) {
+
+    const rate = getField(poster, [
+        "rate",
+        "price",
+        "amount",
+        "cost"
+    ]);
+
+    if (!rate) return "Enquire for Price";
+
+    return rate.startsWith("₹")
+        ? rate
+        : `₹${rate}`;
+
+}
+
+function validImage(url) {
+
+    try {
+
+        return ["http:", "https:"].includes(
+            new URL(url).protocol
+        );
+
+    } catch (e) {
+
+        return false;
+
+    }
+
+}
+
+/* ================= LOAD POSTERS ================= */
+
+function loadPostersFromSheet() {
+
+    showMessage("Loading posters...");
+
+    const script = document.createElement("script");
+
+    script.src =
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:handleSheetData`;
+
+    script.onerror = function () {
+
+        showMessage(
+            "Unable to reach Google Sheets. Check your internet connection or Sheet sharing settings."
+        );
+
+    };
+
+    document.body.appendChild(script);
+
+}
+
+window.handleSheetData = function (response) {
+
+    try {
+
+        if (
+            !response ||
+            response.status === "error" ||
+            !response.table
+        ) {
+
+            throw new Error(
+                "Check Google Sheet access and sharing settings."
+            );
+
+        }
+
+        const table = response.table;
+
+        let cols = table.cols.map(c =>
+            (c.label || "").toLowerCase().trim()
+        );
+
+        let rows = table.rows || [];
+
+        if (
+            !cols.includes("image") &&
+            !cols.includes("title") &&
+            rows.length
+        ) {
+
+            cols = rows[0].c.map(cell =>
+                cell && cell.v != null
+                    ? String(cell.v).toLowerCase().trim()
+                    : ""
+            );
+
+            rows = rows.slice(1);
+
+        }
+
+        allRowsData = rows.map((row, index) => {
+
+            const obj = Object.create(null);
+
+            obj._sheetOrder = index;
+
+            cols.forEach((header, i) => {
+
+                const cell = row.c[i];
+
+                if (header) {
+
+                    obj[header] =
+                        cell && cell.v != null
+                            ? String(cell.v).trim()
+                            : "";
+
+                }
+
+            });
+
+            return obj;
+
         });
 
-        function toggleCategoryMenu() {
-            const menu = document.getElementById('categoryButtons');
-            const toggle = document.getElementById('categoryMenuToggle');
-            const isOpen = menu.classList.toggle('open');
-            toggle.setAttribute('aria-expanded', isOpen);
-        }
+        const activeRows = allRowsData.filter(item => {
 
-        function loadPostersFromSheet() {
-            gallery.innerHTML = `<div class="no-results">Loading posters...</div>`;
-            const script = document.createElement('script');
-            script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:handleSheetData`;
-            script.onerror = function() {
-                gallery.innerHTML = `<div class="no-results">Unable to reach Google Sheets. Check your internet connection or Sheet sharing settings.</div>`;
-            };
-            document.body.appendChild(script);
-        }
+            const status = getField(item, [
+                "status",
+                "on/off",
+                "onoff",
+                "active",
+                "show"
+            ]).toLowerCase();
 
-        function handleSheetData(response) {
-            try {
-                const table = response.table;
-                let cols = table.cols.map(c => (c.label || '').toLowerCase().trim());
-                let rows = table.rows;
+            return ["on", "yes", "true"].includes(status);
 
-                if (!cols.includes('image') && !cols.includes('title') && rows.length > 0) {
-                    cols = rows[0].c.map(cell => (cell && cell.v ? String(cell.v).toLowerCase().trim() : ''));
-                    rows = rows.slice(1);
-                }
+        });
 
-                allRowsData = rows.map((row, idx) => {
-                    const obj = { _sheetOrder: idx };
-                    cols.forEach((h, i) => {
-                        const cell = row.c[i];
-                        obj[h] = cell && cell.v !== null ? String(cell.v).trim() : '';
-                    });
-                    return obj;
-                });
+        combosData = activeRows.filter(item => {
 
-                const activeRows = allRowsData.filter(item => {
-                    const status = getField(item, ['status', 'on/off', 'onoff', 'active', 'show']).toLowerCase();
-                    return status === 'on' || status === 'yes' || status === 'true';
-                });
+            const category =
+                getPosterCategory(item).toLowerCase();
 
-                combosData = activeRows.filter(item => {
-                    const cat = getPosterCategory(item).toLowerCase();
-                    const comboField = getField(item, ['combo', 'combos', 'combo posters']);
-                    return cat === 'combos' || cat === 'combo' || (comboField !== '' && !item.image);
-                });
-
-                postersData = activeRows.filter(item => {
-                    const cat = getPosterCategory(item).toLowerCase();
-                    return item.image && item.image.startsWith('http') && cat !== 'combos' && cat !== 'combo';
-                });
-
-                renderCategoryButtons();
-                renderSubcategories();
-                applyFilters();
-            } catch (err) {
-                gallery.innerHTML = `<div class="no-results">Error reading sheet data: ${err.message}</div>`;
-            }
-        }
-
-        function getField(obj, possibleKeys) {
-            for (const key of possibleKeys) {
-                if (obj[key] !== undefined && String(obj[key]).trim() !== '') {
-                    return String(obj[key]).trim();
-                }
-            }
-            return '';
-        }
-
-        function getPosterCategory(poster) {
-            const category = getField(poster, ['category', 'main category', 'main_category']);
-            for (const separator of [' > ', ' | ', ' / ']) {
-                if (category.includes(separator)) {
-                    return category.split(separator)[0].trim();
-                }
-            }
-            return category;
-        }
-
-        function getPosterSubcategory(poster) {
-            const subcategory = getField(poster, [
-                'subcategory', 'sub category', 'sub-category', 'sub division', 'subdivision'
+            const comboField = getField(item, [
+                "combo",
+                "combos",
+                "combo posters"
             ]);
-            if (subcategory) return subcategory;
 
-            const category = getField(poster, ['category', 'main category', 'main_category']);
-            for (const separator of [' > ', ' | ', ' / ']) {
-                if (category.includes(separator)) {
-                    return category.split(separator).slice(1).join(' / ').trim();
-                }
-            }
-            return '';
-        }
-
-        function isTrending(poster) {
-            const val = getField(poster, ['trending', 'trend']).toLowerCase();
-            return val === 'yes' || val === 'on' || val === 'true';
-        }
-
-        function formatRate(item) {
-            const rawRate = getField(item, ['rate', 'price', 'amount', 'cost']);
-            if (!rawRate) return 'Enquire for Price';
-            return rawRate.startsWith('₹') ? rawRate : `₹${rawRate}`;
-        }
-
-        function togglePosterSelection(code, event) {
-            if (event) event.stopPropagation();
-            if (!code) return;
-
-            const index = selectedPosterCodes.indexOf(code);
-            if (index > -1) {
-                selectedPosterCodes.splice(index, 1);
-            } else {
-                selectedPosterCodes.push(code);
-                recordPosterAction(code, 'select');
-            }
-
-            updateMultiSelectUI();
-            applyFilters();
-        }
-
-        function clearSelectedPosters() {
-            selectedPosterCodes = [];
-            updateMultiSelectUI();
-            applyFilters();
-        }
-
-        function updateMultiSelectUI() {
-            const bar = document.getElementById('multiSelectBar');
-            const countText = document.getElementById('multiCountText');
-            const codesText = document.getElementById('multiCodesText');
-            const enquiryBtn = document.getElementById('multiEnquiryBtn');
-
-            if (selectedPosterCodes.length === 0) {
-                bar.classList.remove('visible');
-                return;
-            }
-
-            bar.classList.add('visible');
-            countText.innerText = `${selectedPosterCodes.length} Poster${selectedPosterCodes.length > 1 ? 's' : ''} Selected`;
-            codesText.innerText = `Codes: ${selectedPosterCodes.join(', ')}`;
-
-            const waMessage = encodeURIComponent(
-                `Hi Chaplin's World! I would like to enquire about these selected posters:\n\nPoster Codes: ${selectedPosterCodes.join(', ')}`
+            return (
+                ["combo", "combos"].includes(category) ||
+                (comboField !== "" && !item.image)
             );
-            enquiryBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMessage}`;
 
-            enquiryBtn.onclick = () => {
-                selectedPosterCodes.forEach(c => recordPosterAction(c, 'enquiry'));
-            };
-        }
+        });
 
-        function drawProtectedThumbnail(canvas, imgUrl, width = 320, height = 452) {
-            const ctx = canvas.getContext('2d');
-            canvas.width = width;
-            canvas.height = height;
+        postersData = activeRows.filter(item => {
 
-            ctx.fillStyle = "#111";
-            ctx.fillRect(0, 0, width, height);
+            const category =
+                getPosterCategory(item).toLowerCase();
 
-            const img = new Image();
-            img.crossOrigin = "Anonymous";
-            img.onload = function() {
-                ctx.drawImage(img, 0, 0, width, height);
-            };
-            img.onerror = function() {
-                ctx.fillStyle = "#1a1a1d";
-                ctx.fillRect(0, 0, width, height);
-                ctx.fillStyle = "#9e9a93";
-                ctx.font = "14px Montserrat, sans-serif";
-                ctx.textAlign = "center";
-                ctx.fillText("Preview Unavailable", width / 2, height / 2);
-            };
-            img.src = imgUrl;
-        }
+            return (
+                validImage(item.image) &&
+                !["combo", "combos"].includes(category)
+            );
 
-        function renderCategoryButtons() {
-            const container = document.getElementById('categoryButtons');
-            const dynamicCategories = [...new Set(
-                postersData.map(getPosterCategory).filter(Boolean)
-            )].sort((a, b) => a.localeCompare(b));
+        });
 
-            container.innerHTML = '';
-            addCatBtn(container, 'All', 'All Posters');
-            addCatBtn(container, 'Trending', 'Trending 🔥');
-            dynamicCategories.forEach(cat => addCatBtn(container, cat, cat));
-            addCatBtn(container, 'Combos', 'Combos');
-        }
+        renderCategoryButtons();
 
-        function addCatBtn(container, value, label) {
-            const btn = document.createElement('button');
-            btn.className = `cat-btn ${currentCategory === value ? 'active' : ''}`;
-            btn.onclick = () => filterPosters(value);
-            btn.textContent = label;
-            container.appendChild(btn);
-        }
+        renderSubcategories();
 
-        function renderSubcategories() {
-            const container = document.getElementById('subcategoryButtons');
+        applyFilters();
 
-            if (currentCategory === 'All' || currentCategory === 'Trending' || currentCategory === 'Combos') {
-                container.innerHTML = '';
-                container.classList.remove('visible');
-                return;
-            }
+    } catch (err) {
 
-            const subcategories = [...new Set(
-                postersData
-                    .filter(p => getPosterCategory(p).toLowerCase() === currentCategory.toLowerCase())
-                    .map(getPosterSubcategory)
-                    .filter(Boolean)
-            )].sort((a, b) => a.localeCompare(b));
+        showMessage(
+            "Error reading sheet data: " + err.message
+        );
 
-            if (subcategories.length === 0) {
-                container.innerHTML = '';
-                container.classList.remove('visible');
-                return;
-            }
+    }
 
-            container.innerHTML = '';
+};
 
-            const allSubBtn = document.createElement('button');
-            allSubBtn.className = `subcat-btn ${currentSubcategory === 'All' ? 'active' : ''}`;
-            allSubBtn.onclick = () => filterSubcategory('All');
-            allSubBtn.textContent = `All ${currentCategory}`;
-            container.appendChild(allSubBtn);
+/* ================= CATEGORY BUTTONS ================= */
 
-            subcategories.forEach(sub => {
-                const btn = document.createElement('button');
-                btn.className = `subcat-btn ${currentSubcategory === sub ? 'active' : ''}`;
-                btn.onclick = () => filterSubcategory(sub);
-                btn.textContent = sub;
-                container.appendChild(btn);
-            });
+function addCatBtn(container, value, label) {
 
-            container.classList.add('visible');
-        }
+    const btn = el(
+        "button",
+        "cat-btn" +
+            (currentCategory === value ? " active" : ""),
+        label
+    );
 
-        function applyFilters() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            document.getElementById('clearSearchBtn').style.display = query.length > 0 ? 'block' : 'none';
+    btn.type = "button";
 
-            if (currentCategory === 'Combos') {
-                displayCombos(query);
-                return;
-            }
+    btn.setAttribute(
+        "aria-pressed",
+        String(currentCategory === value)
+    );
 
-            const filtered = postersData.filter(poster => {
-                let matchesCategory = true;
-                if (currentCategory === 'Trending') {
-                    matchesCategory = isTrending(poster);
-                } else if (currentCategory !== 'All') {
-                    matchesCategory = getPosterCategory(poster).toLowerCase() === currentCategory.toLowerCase();
-                }
+    btn.onclick = () => filterPosters(value);
 
-                const matchesSubcategory =
-                    currentCategory === 'All' ||
-                    currentCategory === 'Trending' ||
-                    currentSubcategory === 'All' ||
-                    getPosterSubcategory(poster).toLowerCase() === currentSubcategory.toLowerCase();
+    container.appendChild(btn);
 
-                const matchesSearch =
-                    (poster.title || '').toLowerCase().includes(query) ||
-                    getPosterCategory(poster).toLowerCase().includes(query) ||
-                    getPosterSubcategory(poster).toLowerCase().includes(query) ||
-                    (poster.id || '').toLowerCase().includes(query) ||
-                    (poster.desc || '').toLowerCase().includes(query);
+}
 
-                return matchesCategory && matchesSubcategory && matchesSearch;
-            });
+function renderCategoryButtons() {
 
-            // Ordering rule:
-            // 1. Inside a specific Subcategory -> Strict Google Sheet order
-            // 2. All Posters, Trending, or Main Category ("All <Category>") -> Collapsed/shuffled per refresh + ranked by Enquiries > Selections > Views
-            const isInsideSubcategory =
-                currentCategory !== 'All' &&
-                currentCategory !== 'Trending' &&
-                currentSubcategory !== 'All';
+    const container = $("categoryButtons");
 
-            const sorted = [...filtered].sort((a, b) => {
-                if (isInsideSubcategory) {
-                    return a._sheetOrder - b._sheetOrder;
-                }
-                const scoreDiff = getPopularityScore(b) - getPopularityScore(a);
-                if (scoreDiff !== 0) return scoreDiff;
-                const codeA = a.id || a.title || '';
-                const codeB = b.id || b.title || '';
-                return getRefreshJitter(codeA) - getRefreshJitter(codeB);
-            });
+    const dynamicCategories = [
+        ...new Set(
+            postersData
+                .map(getPosterCategory)
+                .filter(Boolean)
+        )
+    ].sort((a, b) => a.localeCompare(b));
 
-            displayPosters(sorted);
-        }
+    container.replaceChildren();
 
-        function handleSearch() { applyFilters(); }
+    addCatBtn(container, "All", "All Posters");
 
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            applyFilters();
-        }
+    addCatBtn(container, "Trending", "Trending 🔥");
 
-        function filterPosters(category) {
-            currentCategory = category;
-            currentSubcategory = 'All';
-            renderCategoryButtons();
-            renderSubcategories();
+    dynamicCategories.forEach(category => {
 
-            const menu = document.getElementById('categoryButtons');
-            const toggle = document.getElementById('categoryMenuToggle');
-            if (menu.classList.contains('open')) {
-                menu.classList.remove('open');
-                toggle.setAttribute('aria-expanded', 'false');
-            }
+        addCatBtn(container, category, category);
 
-            applyFilters();
-        }
+    });
 
-        function filterSubcategory(subcategory) {
+    addCatBtn(container, "Combos", "Combos");
+
+}
+
+/* ================= SUBCATEGORY BUTTONS ================= */
+
+function renderSubcategories() {
+
+    const container = $("subcategoryButtons");
+
+    container.replaceChildren();
+
+    container.classList.remove("visible");
+
+    if (
+        ["All", "Trending", "Combos"].includes(
+            currentCategory
+        )
+    ) {
+
+        return;
+
+    }
+
+    const subcategories = [
+        ...new Set(
+            postersData
+                .filter(poster =>
+                    getPosterCategory(poster).toLowerCase() ===
+                    currentCategory.toLowerCase()
+                )
+                .map(getPosterSubcategory)
+                .filter(Boolean)
+        )
+    ].sort((a, b) => a.localeCompare(b));
+
+    if (!subcategories.length) return;
+
+    for (const subcategory of ["All", ...subcategories]) {
+
+        const btn = el(
+            "button",
+            "subcat-btn" +
+                (
+                    currentSubcategory === subcategory
+                        ? " active"
+                        : ""
+                ),
+            subcategory === "All"
+                ? `All ${currentCategory}`
+                : subcategory
+        );
+
+        btn.type = "button";
+
+        btn.setAttribute(
+            "aria-pressed",
+            String(currentSubcategory === subcategory)
+        );
+
+        btn.onclick = () => {
+
             currentSubcategory = subcategory;
+
             renderSubcategories();
+
             applyFilters();
+
+        };
+
+        container.appendChild(btn);
+
+    }
+
+    container.classList.add("visible");
+
+}
+
+function filterPosters(category) {
+
+    currentCategory = category;
+
+    currentSubcategory = "All";
+
+    renderCategoryButtons();
+
+    renderSubcategories();
+
+    $("categoryButtons").classList.remove("open");
+
+    $("categoryMenuToggle").setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+    applyFilters();
+
+}
+
+/* ================= SEARCH AND SORTING ================= */
+
+function applyFilters() {
+
+    const query = $("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    $("clearSearchBtn").style.display =
+        query ? "block" : "none";
+
+    if (currentCategory === "Combos") {
+
+        displayCombos(query);
+
+        return;
+
+    }
+
+    const filtered = postersData.filter(poster => {
+
+        const matchesCategory =
+            currentCategory === "All" ||
+            (
+                currentCategory === "Trending"
+                    ? isTrending(poster)
+                    : getPosterCategory(poster).toLowerCase() ===
+                      currentCategory.toLowerCase()
+            );
+
+        const matchesSubcategory =
+            currentSubcategory === "All" ||
+            getPosterSubcategory(poster).toLowerCase() ===
+            currentSubcategory.toLowerCase();
+
+        const matchesSearch = [
+
+            poster.title,
+
+            getPosterCategory(poster),
+
+            getPosterSubcategory(poster),
+
+            poster.id,
+
+            poster.desc
+
+        ].some(value =>
+
+            String(value || "")
+                .toLowerCase()
+                .includes(query)
+
+        );
+
+        return (
+            matchesCategory &&
+            matchesSubcategory &&
+            matchesSearch
+        );
+
+    });
+
+    const isInsideSubcategory =
+        !["All", "Trending"].includes(currentCategory) &&
+        currentSubcategory !== "All";
+
+    filtered.sort((a, b) => {
+
+        /* Preserve strict Google Sheet order */
+
+        if (isInsideSubcategory) {
+
+            return a._sheetOrder - b._sheetOrder;
+
         }
 
-        function displayPosters(items) {
-            applyResponsiveGrid();
-            gallery.innerHTML = "";
-            if (items.length === 0) {
-                gallery.innerHTML = `<div class="no-results">No active posters found for this selection.</div>`;
-                return;
-            }
+        /* Freeze popularity during selection */
 
-            const isMobile = window.innerWidth <= 768;
+        const score = poster =>
+            frozenScores
+                ? frozenScores.get(poster) || 0
+                : getPopularityScore(poster);
 
-            items.forEach(poster => {
-                const code = poster.id || poster.title || '';
-                const isSelected = selectedPosterCodes.includes(code);
+        return (
 
-                const card = document.createElement('div');
-                card.className = `poster-card ${isSelected ? 'selected' : ''}`;
-                card.onclick = () => openModal(poster);
+            score(b) - score(a) ||
 
-                const subcategory = getPosterSubcategory(poster);
-                const categoryLabel = subcategory
-                    ? `${getPosterCategory(poster)} / ${subcategory}`
-                    : (getPosterCategory(poster) || 'Poster');
+            getRefreshJitter(codeOf(a)) -
+            getRefreshJitter(codeOf(b)) ||
 
-                const trendingHtml = isTrending(poster) ? `<div class="trending-badge">🔥</div>` : '';
-                const selectLabel = isMobile
-                    ? (isSelected ? '✓' : '+')
-                    : (isSelected ? '✓ Selected' : '+ Select');
+            a._sheetOrder - b._sheetOrder
 
-                card.innerHTML = `
-                    <button type="button" class="select-toggle-btn" onclick="togglePosterSelection('${code.replace(/'/g, "\\'")}', event)">
-                        ${selectLabel}
-                    </button>
-                    <div class="poster-img-wrap">
-                        ${trendingHtml}
-                        <canvas></canvas>
-                        <div class="img-shield"></div>
-                        <div class="watermark-overlay">CHAPLIN'S WORLD</div>
-                    </div>
-                    <div class="poster-info">
-                        <div class="poster-cat">${categoryLabel}</div>
-                        <div class="poster-title">${poster.title || 'Untitled'}</div>
-                        <div class="poster-rate">${formatRate(poster)}</div>
-                        <div class="poster-meta">
-                            <span>A3 / A4</span>
-                            <span>${poster.id || ''}</span>
-                        </div>
-                    </div>
-                `;
+        );
 
-                gallery.appendChild(card);
-                const canvas = card.querySelector('canvas');
-                drawProtectedThumbnail(canvas, poster.image, 320, 452);
-            });
-        }
+    });
 
-        function displayCombos(query) {
-            applyResponsiveGrid();
-            gallery.innerHTML = "";
-            const posterCombos = postersData.filter(p => getField(p, ['combo', 'combos']) !== '');
-            const combinedList = [...combosData, ...posterCombos];
+    displayPosters(filtered);
 
-            const filteredCombos = combinedList.filter(c => {
-                const text = `${c.title || ''} ${c.desc || ''} ${getField(c, ['combo', 'combos', 'combo posters'])} ${c.id || ''}`.toLowerCase();
-                return text.includes(query);
-            });
+}
 
-            if (filteredCombos.length === 0) {
-                gallery.innerHTML = `<div class="no-results">No active combos listed right now.</div>`;
-                return;
-            }
+$("searchInput").addEventListener(
+    "input",
+    applyFilters
+);
 
-            filteredCombos.forEach(combo => {
-                const comboText = getField(combo, ['combo', 'combos', 'combo posters']) || combo.desc || '';
-                const rateText = formatRate(combo);
-                const titleText = combo.title || 'Special Poster Combo';
-                const codeText = combo.id || 'COMBO';
+$("clearSearchBtn").onclick = () => {
 
-                const matchedPosters = postersData.filter(p =>
-                    p.id && comboText.toLowerCase().includes(p.id.toLowerCase())
+    $("searchInput").value = "";
+
+    applyFilters();
+
+    $("searchInput").focus();
+
+};
+
+/* ================= CONTINUOUS SELECTION MODE ================= */
+
+function togglePosterSelection(code) {
+
+    if (!code) return;
+
+    /* Freeze the current popularity ranking */
+
+    if (selectedPosterCodes.size === 0) {
+
+        frozenScores = new Map(
+
+            postersData.map(poster => [
+
+                poster,
+
+                getPopularityScore(poster)
+
+            ])
+
+        );
+
+    }
+
+    /* Select or deselect poster */
+
+    if (selectedPosterCodes.has(code)) {
+
+        selectedPosterCodes.delete(code);
+
+    } else {
+
+        selectedPosterCodes.add(code);
+
+        recordPosterAction(code, "select");
+
+    }
+
+    /* Exit selection mode when no posters remain */
+
+    if (selectedPosterCodes.size === 0) {
+
+        frozenScores = null;
+
+    }
+
+    /* Update cards without reloading the gallery */
+
+    updateMultiSelectUI();
+
+    refreshSelectedCards();
+
+}
+
+function clearSelectedPosters() {
+
+    selectedPosterCodes.clear();
+
+    frozenScores = null;
+
+    updateMultiSelectUI();
+
+    refreshSelectedCards();
+
+}
+
+$("clearSelectedBtn").onclick =
+    clearSelectedPosters;
+
+/* ================= UPDATE SELECTION BAR ================= */
+
+function updateMultiSelectUI() {
+
+    const count = selectedPosterCodes.size;
+
+    const active = count > 0;
+
+    document.body.classList.toggle(
+        "selection-mode",
+        active
+    );
+
+    $("multiSelectBar").classList.toggle(
+        "visible",
+        active
+    );
+
+    $("galleryStatus").classList.toggle(
+        "selection-active",
+        active
+    );
+
+    $("galleryStatus").textContent = active
+
+        ? "✓ Selection Mode — Tap any poster to select"
+
+        : "All Posters";
+
+    $("multiCountText").textContent =
+
+        `${count} Poster${count === 1 ? "" : "s"} Selected`;
+
+    $("multiCodesText").textContent =
+
+        "Codes: " +
+        ([...selectedPosterCodes].join(", ") || "-");
+
+    if (active) {
+
+        const message =
+
+            `Hi Chaplin's World! I would like to enquire about these selected posters:\n\nPoster Codes: ${[...selectedPosterCodes].join(", ")}`;
+
+        $("multiEnquiryBtn").href = waUrl(message);
+
+    } else {
+
+        $("multiEnquiryBtn").removeAttribute("href");
+
+    }
+
+}
+
+$("multiEnquiryBtn").onclick = () => {
+
+    selectedPosterCodes.forEach(code => {
+
+        recordPosterAction(code, "enquiry");
+
+    });
+
+};
+
+/* ================= UPDATE INDIVIDUAL CARDS ================= */
+
+function updateCardSelection(card) {
+
+    const selected =
+        selectedPosterCodes.has(card.dataset.code);
+
+    card.classList.toggle(
+        "selected",
+        selected
+    );
+
+    const btn = card.querySelector(
+        ".select-toggle-btn"
+    );
+
+    btn.setAttribute(
+        "aria-pressed",
+        String(selected)
+    );
+
+    btn.setAttribute(
+        "aria-label",
+        `${selected ? "Deselect" : "Select"} ${card.dataset.code}`
+    );
+
+    btn.querySelector(
+        ".select-desktop"
+    ).textContent = selected
+
+        ? "✓ Selected"
+
+        : "+ Select";
+
+    btn.querySelector(
+        ".select-mobile"
+    ).textContent = selected
+
+        ? "✓"
+
+        : "+";
+
+}
+
+function refreshSelectedCards() {
+
+    gallery
+        .querySelectorAll(".poster-card")
+        .forEach(updateCardSelection);
+
+}
+
+/* ================= LAZY IMAGE LOADING ================= */
+
+const pendingImages = new WeakMap();
+
+const drawTokens = new WeakMap();
+
+const observer = "IntersectionObserver" in window
+
+    ? new IntersectionObserver(entries => {
+
+        for (const entry of entries) {
+
+            if (!entry.isIntersecting) continue;
+
+            observer.unobserve(entry.target);
+
+            const job = pendingImages.get(entry.target);
+
+            if (job) {
+
+                pendingImages.delete(entry.target);
+
+                drawProtectedThumbnail(
+                    entry.target,
+                    ...job
                 );
 
-                const card = document.createElement('div');
-                card.className = 'combo-card';
+            }
 
-                let thumbsHtml = '';
-                if (matchedPosters.length > 0) {
-                    thumbsHtml = `<div class="combo-thumbs">${matchedPosters.map(() => `<canvas></canvas>`).join('')}</div>`;
-                }
-
-                const msg = encodeURIComponent(`Hi Chaplin's World! I want to order the combo: "${titleText}" (${codeText} - ${comboText}) - ${rateText}.`);
-
-                card.innerHTML = `
-                    <div>
-                        ${thumbsHtml}
-                        <span class="combo-badge">COMBO OFFER • ${codeText}</span>
-                        <div class="combo-title">${titleText}</div>
-                        <div class="combo-items-text">${comboText}</div>
-                    </div>
-                    <div>
-                        <div class="combo-price">${rateText}</div>
-                        <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${msg}" target="_blank" class="btn-primary" style="display:block;">💬 Order Combo on WhatsApp</a>
-                    </div>
-                `;
-
-                gallery.appendChild(card);
-
-                if (matchedPosters.length > 0) {
-                    const canvases = card.querySelectorAll('canvas');
-                    matchedPosters.forEach((mp, idx) => {
-                        if (canvases[idx]) {
-                            drawProtectedThumbnail(canvases[idx], mp.image, 180, 254);
-                        }
-                    });
-                }
-            });
         }
 
-        function openModal(poster) {
-            const modalCanvas = document.getElementById('modalCanvas');
-            drawProtectedThumbnail(modalCanvas, poster.image, 360, 509);
+    }, {
 
-            const code = poster.id || poster.title || '';
-            recordPosterAction(code, 'view');
+        rootMargin: "250px"
 
-            const subcategory = getPosterSubcategory(poster);
-            document.getElementById('modalCat').innerText = subcategory
-                ? `${getPosterCategory(poster)} / ${subcategory}`
-                : (getPosterCategory(poster) || 'Poster');
-            document.getElementById('modalTitle').innerText = poster.title || 'Untitled';
-            document.getElementById('modalDesc').innerText = poster.desc || 'High-definition minimalist artwork designed for modern living spaces and studios.';
-            document.getElementById('modalRate').innerText = formatRate(poster);
-            document.getElementById('modalCode').innerText = code;
+    })
 
-            const msg = encodeURIComponent(`Hi Chaplin's World! I would like to enquire about Poster Code: ${code} ("${poster.title}").`);
-            const waBtn = document.getElementById('whatsappBtn');
-            waBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-            waBtn.onclick = () => recordPosterAction(code, 'enquiry');
+    : null;
 
-            const multiBtn = document.getElementById('modalMultiSelectBtn');
-            const updateModalMultiBtn = () => {
-                const isSelected = selectedPosterCodes.includes(code);
-                if (isSelected) {
-                    multiBtn.innerText = '✓ Added to Multiple Selection (Click to Remove)';
-                    multiBtn.classList.add('added');
-                } else {
-                    multiBtn.innerText = '+ Select Multiple (Add to Enquiry List)';
-                    multiBtn.classList.remove('added');
-                }
-            };
-            updateModalMultiBtn();
+function queueThumbnail(
+    canvas,
+    url,
+    width = 320,
+    height = 452
+) {
 
-            multiBtn.onclick = () => {
+    canvas.width = width;
+
+    canvas.height = height;
+
+    if (observer) {
+
+        pendingImages.set(
+            canvas,
+            [url, width, height]
+        );
+
+        observer.observe(canvas);
+
+    } else {
+
+        drawProtectedThumbnail(
+            canvas,
+            url,
+            width,
+            height
+        );
+
+    }
+
+}
+
+function discardGallery() {
+
+    if (observer) {
+
+        gallery.querySelectorAll("canvas").forEach(canvas => {
+
+            observer.unobserve(canvas);
+
+            pendingImages.delete(canvas);
+
+        });
+
+    }
+
+    gallery.replaceChildren();
+
+}
+
+/* ================= IMAGE ASPECT RATIO ================= */
+
+function drawContained(ctx, img, width, height) {
+
+    const ratio = Math.min(
+
+        width / img.naturalWidth,
+
+        height / img.naturalHeight
+
+    );
+
+    const imageWidth =
+        img.naturalWidth * ratio;
+
+    const imageHeight =
+        img.naturalHeight * ratio;
+
+    ctx.fillStyle = "#111";
+
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.drawImage(
+
+        img,
+
+        (width - imageWidth) / 2,
+
+        (height - imageHeight) / 2,
+
+        imageWidth,
+
+        imageHeight
+
+    );
+
+}
+
+/* ================= CANVAS THUMBNAILS ================= */
+
+function drawProtectedThumbnail(
+    canvas,
+    imgUrl,
+    width = 320,
+    height = 452
+) {
+
+    const ctx = canvas.getContext("2d");
+
+    const token = {};
+
+    drawTokens.set(canvas, token);
+
+    canvas.width = width;
+
+    canvas.height = height;
+
+    ctx.fillStyle = "#111";
+
+    ctx.fillRect(0, 0, width, height);
+
+    const img = new Image();
+
+    img.crossOrigin = "anonymous";
+
+    img.onload = function () {
+
+        if (drawTokens.get(canvas) !== token) return;
+
+        drawContained(
+            ctx,
+            img,
+            width,
+            height
+        );
+
+    };
+
+    img.onerror = function () {
+
+        if (drawTokens.get(canvas) !== token) return;
+
+        ctx.fillStyle = "#1a1a1d";
+
+        ctx.fillRect(
+            0,
+            0,
+            width,
+            height
+        );
+
+        ctx.fillStyle = "#9e9a93";
+
+        ctx.font =
+            `${Math.max(9, Math.min(14, width / 20))}px Montserrat, sans-serif`;
+
+        ctx.textAlign = "center";
+
+        ctx.fillText(
+            "Preview Unavailable",
+            width / 2,
+            height / 2
+        );
+
+    };
+
+    img.src = imgUrl;
+
+}
+
+/* ================= DISPLAY POSTERS ================= */
+
+function displayPosters(items) {
+
+    discardGallery();
+
+    if (!items.length) {
+
+        showMessage(
+            "No active posters found for this selection."
+        );
+
+        return;
+
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    for (const poster of items) {
+
+        const code = codeOf(poster);
+
+        const card = el("div", "poster-card");
+
+        card.dataset.code = code;
+
+        card.tabIndex = 0;
+
+        card.setAttribute(
+
+            "aria-label",
+
+            poster.title || code || "Poster"
+
+        );
+
+        /* IMPORTANT:
+           Normal mode opens preview.
+           Active selection mode selects the entire card.
+        */
+
+        const activate = () => {
+
+            if (selectedPosterCodes.size > 0) {
+
                 togglePosterSelection(code);
-                updateModalMultiBtn();
-                closeModal();
-            };
 
-            document.getElementById('downloadSampleBtn').onclick = () => downloadLowResSample(poster.image, code || 'SAMPLE');
+            } else {
 
-            document.getElementById('previewModal').style.display = 'flex';
+                openModal(poster);
+
+            }
+
+        };
+
+        card.onclick = activate;
+
+        card.onkeydown = e => {
+
+            if (
+                e.target === card &&
+                ["Enter", " "].includes(e.key)
+            ) {
+
+                e.preventDefault();
+
+                activate();
+
+            }
+
+        };
+
+        /* Selection button */
+
+        const selectButton = el(
+            "button",
+            "select-toggle-btn"
+        );
+
+        selectButton.type = "button";
+
+        selectButton.append(
+
+            el("span", "select-desktop"),
+
+            el("span", "select-mobile")
+
+        );
+
+        selectButton.onclick = e => {
+
+            e.stopPropagation();
+
+            togglePosterSelection(code);
+
+        };
+
+        selectButton.disabled = !code;
+
+        card.appendChild(selectButton);
+
+        /* Poster artwork */
+
+        const imageWrap = el(
+            "div",
+            "poster-img-wrap"
+        );
+
+        if (isTrending(poster)) {
+
+            imageWrap.appendChild(
+
+                el("div", "trending-badge", "🔥")
+
+            );
+
         }
 
-        function closeModal() {
-            document.getElementById('previewModal').style.display = 'none';
-            applyFilters();
+        const canvas = el("canvas");
+
+        imageWrap.append(
+
+            canvas,
+
+            el("div", "img-shield"),
+
+            el(
+                "div",
+                "watermark-overlay",
+                "CHAPLIN'S WORLD"
+            )
+
+        );
+
+        /* Poster details */
+
+        const info = el(
+            "div",
+            "poster-info"
+        );
+
+        const category = el(
+
+            "div",
+
+            "poster-cat",
+
+            categoryLabel(poster)
+
+        );
+
+        category.title = categoryLabel(poster);
+
+        const title = el(
+
+            "div",
+
+            "poster-title",
+
+            poster.title || "Untitled"
+
+        );
+
+        title.title = poster.title || "Untitled";
+
+        const rate = el(
+
+            "div",
+
+            "poster-rate",
+
+            formatRate(poster)
+
+        );
+
+        rate.title = formatRate(poster);
+
+        const meta = el(
+            "div",
+            "poster-meta"
+        );
+
+        meta.append(
+
+            el("span", "", "A3 / A4"),
+
+            el("span", "", poster.id || "")
+
+        );
+
+        info.append(
+
+            category,
+
+            title,
+
+            rate,
+
+            meta
+
+        );
+
+        card.append(
+
+            imageWrap,
+
+            info
+
+        );
+
+        updateCardSelection(card);
+
+        fragment.appendChild(card);
+
+        queueThumbnail(
+            canvas,
+            poster.image
+        );
+
+    }
+
+    gallery.appendChild(fragment);
+
+}
+
+/* ================= DISPLAY COMBOS ================= */
+
+function displayCombos(query) {
+
+    discardGallery();
+
+    const posterCombos = postersData.filter(poster =>
+
+        getField(
+            poster,
+            ["combo", "combos"]
+        ) !== ""
+
+    );
+
+    const combinedList = [
+
+        ...combosData,
+
+        ...posterCombos
+
+    ];
+
+    const filteredCombos = combinedList.filter(combo => {
+
+        const text = [
+
+            combo.title,
+
+            combo.desc,
+
+            getField(combo, [
+                "combo",
+                "combos",
+                "combo posters"
+            ]),
+
+            combo.id
+
+        ].join(" ").toLowerCase();
+
+        return text.includes(query);
+
+    });
+
+    if (!filteredCombos.length) {
+
+        showMessage(
+            "No active combos listed right now."
+        );
+
+        return;
+
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    for (const combo of filteredCombos) {
+
+        const comboText = getField(combo, [
+
+            "combo",
+
+            "combos",
+
+            "combo posters"
+
+        ]) || combo.desc || "";
+
+        const rateText = formatRate(combo);
+
+        const titleText =
+            combo.title || "Special Poster Combo";
+
+        const codeText =
+            combo.id || "COMBO";
+
+        const matchedPosters = postersData.filter(poster => {
+
+            if (!poster.id) return false;
+
+            const escaped = poster.id.replace(
+
+                /[.*+?^${}()|[\]\\]/g,
+
+                "\\$&"
+
+            );
+
+            return new RegExp(
+
+                "(^|[^a-z0-9_-])" +
+
+                escaped +
+
+                "($|[^a-z0-9_-])",
+
+                "i"
+
+            ).test(comboText);
+
+        });
+
+        const card = el("div", "combo-card");
+
+        const top = el("div");
+
+        const bottom = el("div");
+
+        if (matchedPosters.length > 0) {
+
+            const thumbs = el(
+                "div",
+                "combo-thumbs"
+            );
+
+            for (const poster of matchedPosters) {
+
+                const canvas = el("canvas");
+
+                thumbs.appendChild(canvas);
+
+                queueThumbnail(
+
+                    canvas,
+
+                    poster.image,
+
+                    180,
+
+                    254
+
+                );
+
+            }
+
+            top.appendChild(thumbs);
+
         }
 
-        function downloadLowResSample(imgUrl, code) {
-            const img = new Image();
-            img.crossOrigin = "Anonymous";
-            img.src = imgUrl;
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = 320;
-                canvas.height = 452;
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        top.append(
 
-                ctx.font = "bold 16px Arial";
-                ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
-                ctx.textAlign = "center";
-                ctx.fillText("CHAPLIN'S WORLD - " + code, canvas.width / 2, canvas.height / 2);
+            el(
+                "span",
+                "combo-badge",
+                `COMBO OFFER • ${codeText}`
+            ),
 
-                const link = document.createElement('a');
-                link.download = `ChaplinsWorld-${code}-Sample.jpg`;
-                link.href = canvas.toDataURL('image/jpeg', 0.45);
-                link.click();
-            };
-            img.onerror = function() {
-                alert("Sample download is blocked by image host CORS settings. Please enquire on WhatsApp for a preview.");
-            };
+            el(
+                "div",
+                "combo-title",
+                titleText
+            ),
+
+            el(
+                "div",
+                "combo-items-text",
+                comboText
+            )
+
+        );
+
+        const orderButton = el(
+
+            "a",
+
+            "btn-primary",
+
+            "💬 Order Combo on WhatsApp"
+
+        );
+
+        orderButton.href = waUrl(
+
+            `Hi Chaplin's World! I want to order the combo: "${titleText}" (${codeText} - ${comboText}) - ${rateText}.`
+
+        );
+
+        orderButton.target = "_blank";
+
+        orderButton.rel = "noopener noreferrer";
+
+        bottom.append(
+
+            el(
+                "div",
+                "combo-price",
+                rateText
+            ),
+
+            orderButton
+
+        );
+
+        card.append(
+
+            top,
+
+            bottom
+
+        );
+
+        fragment.appendChild(card);
+
+    }
+
+    gallery.appendChild(fragment);
+
+}
+
+/* ================= OPEN POSTER PREVIEW ================= */
+
+function openModal(poster) {
+
+    /* Disable preview during multiple selection */
+
+    if (selectedPosterCodes.size > 0) return;
+
+    activePoster = poster;
+
+    previousFocus = document.activeElement;
+
+    const code = codeOf(poster);
+
+    recordPosterAction(
+        code,
+        "view"
+    );
+
+    drawProtectedThumbnail(
+
+        $("modalCanvas"),
+
+        poster.image,
+
+        360,
+
+        509
+
+    );
+
+    $("modalCat").textContent =
+        categoryLabel(poster);
+
+    $("modalTitle").textContent =
+        poster.title || "Untitled";
+
+    $("modalDesc").textContent =
+
+        poster.desc ||
+
+        "High-definition minimalist artwork designed for modern living spaces and studios.";
+
+    $("modalRate").textContent =
+        formatRate(poster);
+
+    $("modalCode").textContent =
+        code;
+
+    const whatsappBtn =
+        $("whatsappBtn");
+
+    whatsappBtn.href = waUrl(
+
+        `Hi Chaplin's World! I would like to enquire about Poster Code: ${code} ("${poster.title || "Untitled"}").`
+
+    );
+
+    whatsappBtn.onclick = () => {
+
+        recordPosterAction(
+            code,
+            "enquiry"
+        );
+
+    };
+
+    const multiBtn =
+        $("modalMultiSelectBtn");
+
+    multiBtn.disabled = !code;
+
+    multiBtn.textContent =
+        "+ Select Multiple (Add to Enquiry List)";
+
+    multiBtn.classList.remove("added");
+
+    multiBtn.onclick = () => {
+
+        togglePosterSelection(code);
+
+        closeModal();
+
+    };
+
+    $("downloadSampleBtn").onclick = () => {
+
+        downloadLowResSample(
+
+            poster.image,
+
+            code || "SAMPLE"
+
+        );
+
+    };
+
+    $("previewModal").classList.add("open");
+
+    document.body.style.overflow = "hidden";
+
+    $("closeModalBtn").focus();
+
+}
+
+/* ================= CLOSE PREVIEW ================= */
+
+function closeModal() {
+
+    $("previewModal").classList.remove("open");
+
+    document.body.style.overflow = "";
+
+    activePoster = null;
+
+    if (
+        previousFocus &&
+        previousFocus.isConnected
+    ) {
+
+        previousFocus.focus({
+            preventScroll: true
+        });
+
+    }
+
+    previousFocus = null;
+
+}
+
+$("closeModalBtn").onclick = closeModal;
+
+$("previewModal").addEventListener("click", e => {
+
+    if (e.target === $("previewModal")) {
+
+        closeModal();
+
+    }
+
+});
+
+/* ================= LOW RESOLUTION SAMPLE DOWNLOAD ================= */
+
+function downloadLowResSample(imgUrl, code) {
+
+    const button = $("downloadSampleBtn");
+
+    button.disabled = true;
+
+    const img = new Image();
+
+    img.crossOrigin = "anonymous";
+
+    img.onload = function () {
+
+        try {
+
+            const canvas = document.createElement("canvas");
+
+            canvas.width = 320;
+
+            canvas.height = 452;
+
+            const ctx = canvas.getContext("2d");
+
+            drawContained(
+
+                ctx,
+
+                img,
+
+                320,
+
+                452
+
+            );
+
+            /* Sample watermark */
+
+            ctx.font = "bold 14px Arial";
+
+            ctx.fillStyle =
+                "rgba(255,255,255,0.65)";
+
+            ctx.textAlign = "center";
+
+            ctx.fillText(
+
+                "CHAPLIN'S WORLD - " + code,
+
+                160,
+
+                226,
+
+                300
+
+            );
+
+            const link = document.createElement("a");
+
+            const safeCode = code.replace(
+                /[^a-zA-Z0-9_-]/g,
+                "_"
+            );
+
+            link.download =
+                `ChaplinsWorld-${safeCode}-Sample.jpg`;
+
+            link.href = canvas.toDataURL(
+
+                "image/jpeg",
+
+                0.45
+
+            );
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+
+        } catch (e) {
+
+            alert(
+
+                "Sample download is blocked by image host CORS settings. Please enquire on WhatsApp for a preview."
+
+            );
+
+        } finally {
+
+            button.disabled = false;
+
         }
 
-        loadPostersFromSheet();
-    </script>
+    };
+
+    img.onerror = function () {
+
+        button.disabled = false;
+
+        alert(
+
+            "Sample download is blocked by image host CORS settings. Please enquire on WhatsApp for a preview."
+
+        );
+
+    };
+
+    img.src = imgUrl;
+
+}
+
+/* ================= INITIALIZE WEBSITE ================= */
+
+updateMultiSelectUI();
+
+loadPostersFromSheet();
+
+</script>
+
 </body>
 </html>
